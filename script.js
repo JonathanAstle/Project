@@ -31,7 +31,11 @@ function starRating(a) {
 
 function showWarning(warningParagraph, parent) {
     hideWarning();
-    document.getElementById(warningParagraph).innerHTML="Warning: This will remove the currently displayed comments. Do you want to proceed?";
+    if (warningParagraph=="delete warning text") {
+        document.getElementById(warningParagraph).innerHTML="Warning: This will remove the currently displayed comments. Do you want to proceed?";
+    } else {
+        document.getElementById(warningParagraph).innerHTML="Warning: This will replace the currently displayed comments. Do you want to proceed?";
+    }
     var yesButton = document.createElement("button");
     var noButton = document.createElement("button");
     yesButton.appendChild(document.createTextNode("Yes"));
