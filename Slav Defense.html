@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Chess Openings</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<!-- Add star icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+a {
+  text-decoration: none;
+}
+.checked {
+  color: rgb(155, 173, 255);
+}
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+  <a href="Home page.html"><h3 class="w3-padding-64 w3-center"><b>CHESS<br>OPENINGS</b></h3></a>
+  <a href="King's Gambit.html" class="w3-bar-item w3-button">KING'S GAMBIT</a> 
+  <a href="Queen's Gambit.html" class="w3-bar-item w3-button">QUEEN'S GAMBIT</a>
+  <a href="Slav Defense.html" class="w3-bar-item w3-button">SLAV DEFENSE</a> 
+  <a href="Danish Gambit.html" class="w3-bar-item w3-button">DANISH GAMBIT</a>
+  <a href="London System.html" class="w3-bar-item w3-button">LONDON SYSTEM</a>
+  <a href="Caro Kann.html" class="w3-bar-item w3-button">CARO KANN</a>
+  <a href="Fried Liver Attack.html" class="w3-bar-item w3-button">FRIED LIVER ATTACK</a>
+  <a href="French Defense.html" class="w3-bar-item w3-button">FRENCH DEFENSE</a>
+  <a href="Ruy Lopez.html" class="w3-bar-item w3-button">RUY LOPEZ</a>
+  <a href="Nimzo-Indian Defense.html" class="w3-bar-item w3-button">NIMZO-INDIAN DEFENSE</a>
+  <a href="Sicilian Defense.html" class="w3-bar-item w3-button">SICILIAN DEFENSE</a>
+</nav>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Main page -->
+  <div class="w3-center w3-padding-32">
+
+    <h2 id="openingName">SLAV DEFENSE</h2>
+
+    <img id = "board" src="C:\Users\Jonathan\Documents\HTML\Slav Defense\0.png" alt="Chess Board">
+
+    <br><br>
+
+    <div class="w3-bar">
+      <a onclick="clickResponse(0)" class="w3-bar-item w3-button w3-hover-lightgrey" id="resetButton">reset</a>
+      <a onclick="clickResponse(-1)" class="w3-bar-item w3-button w3-hover-lightgrey" id="backButton">«</a>
+      <a onclick = clickResponse(1) class="w3-bar-item w3-button w3-hover-lightgrey" id="forwardButton">»</a>
+      <br><br><br>
+    </div>
+
+
+    <!-- About section -->
+    <div class="w3-container w3-dark-grey w3-center w3-text-light-grey w3-padding-32" id="about">
+
+        <h4><b>User Rating</b></h4>
+        <div class="w3-content w3-justify" style="max-width:600px">
+
+
+          <h4>Star rating<br>
+            <span id="star1" class="fa fa-star" onmouseover="starRating(1)" style="margin-left:0px"
+            onmouseout="starRating(slavDefenseRating)" onclick="slavDefenseRating=1"></span>
+            <span id="star2" class="fa fa-star" onmouseover="starRating(2)" 
+            onmouseout="starRating(slavDefenseRating)" onclick="slavDefenseRating=2"></span>
+            <span id="star3" class="fa fa-star" onmouseover="starRating(3)" 
+            onmouseout="starRating(slavDefenseRating)" onclick="slavDefenseRating=3"></span>
+            <span id="star4" class="fa fa-star" onmouseover="starRating(4)" 
+            onmouseout="starRating(slavDefenseRating)" onclick="slavDefenseRating=4"></span>
+            <span id="star5" class="fa fa-star" onmouseover="starRating(5)" 
+            onmouseout="starRating(slavDefenseRating)" onclick="slavDefenseRating=5"></span>
+            &emsp;&emsp;<a class="w3-bar-item w3-button w3-hover-lightgrey" id="removeRatingButton" onclick="slavDefenseRating=0; starRating(0)">🞩</a>
+            </h4>
+
+
+          <h4>Comments</h4>
+          <p><this id="comments paragraph">There are currently no comments for this opening.&emsp;&emsp;</this>
+          <a class="w3-bar-item w3-button w3-hover-lightgrey" id="removeCommentsButton" onclick="showWarning('delete warning text','delete warning')">🞩</a></p>
+
+          <div id="delete warning">
+            <p id="delete warning text" style="color: rgb(255, 153, 153)"></p>
+          </div>
+
+          <div class="w3-section">
+            <input class="w3-input w3-border" type="text" name="Message" id="commentBox" required placeholder="Type your comments in this box">
+          </div>
+          <button class="w3-button w3-block w3-grey w3-margin-bottom" onclick="showWarning('comment warning text', 'comment warning')">Submit comment</button>
+
+          <div id="comment warning">
+            <p id="comment warning text" style="color: rgb(255, 153, 153)"></p>
+          </div>
+
+          <hr class="w3-opacity">
+        </div>
+    </div>
+
+  </div>
+
+<script src="C:\Users\Jonathan\Documents\HTML\script.js"></script>
+
+
+</body>
+</html>
