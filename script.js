@@ -1,17 +1,20 @@
-const imageFolder = "C:\\Users\\Jonathan\\Documents\\HTML\\Slav Defense\\";
+const req = new XMLHttpRequest();
+var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess openings\\Slav Defense\\";
+
+makeGetRequest("http://localhost:9000/images");
 
 let slavDefenseRating;
 
 var counter = 0;
 function clickResponse(a) {
     if (a==0) {
-        document.getElementById("board").src = imageFolder + "0.png";
+        document.getElementById("board").src = imageFolder + "\\0.png";
         counter=0;
     } else {
         if (counter + a < 5 && counter + a >= 0) {
             counter += a;
-            document.getElementById("board").src = imageFolder + counter +".png";
-        } else if (counter + a >= slavDefense.length) {
+            document.getElementById("board").src = imageFolder +"\\"+ counter +".png";
+        } else if (counter + a >= 5) {
             //make forward button greyed out
         } else {
             //make backward button greyed out
@@ -86,4 +89,32 @@ function handleCommentSubmit() {
         setComments("There are currently no comments for this opening.&emsp;&emsp;");
     }
     document.getElementById("commentBox").value="";
+}
+
+
+
+
+
+
+function makeGetRequest(link){
+    req.open("GET", link);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send();
+    getOnLoad();
+}
+
+function getOnLoad() {
+    req.onload = () => {
+        if (req.status ==200) {
+            console.log("200");
+        } 
+        else {
+            reject("Request Failed");
+        }
+        console.log(req.response);
+        data = JSON.parse(req.response);
+        console.log(data[10].imageLocation)
+        imageFolder = data[10].imageLocation
+        console.log("HERE" + imageFolder)
+    }
 }
