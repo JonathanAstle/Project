@@ -4,7 +4,7 @@ var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess open
 var listOfRatings;
 
 let name = "Slav Defense"
-let slavDefenseRating;
+let slavDefenseRating; //undefined if not 
 let slavDefenseComment;
 
 makeGetRequest("http://localhost:9000/ratings", "ratings")
@@ -18,6 +18,17 @@ function setRatingAndComments() {
             setComments(slavDefenseComment);
         }
     }
+}
+
+//returns true if the name exists in listOfRatings
+function checkIfExists(name) {
+    for (let row in listOfRatings) {
+        if (listOfRatings[row].name == name) {
+            return true;
+            break;
+        } 
+    }
+    return false;
 }
 
 var counter = 0;
@@ -45,6 +56,39 @@ function starRating(a) {
             document.getElementById("star"+i).className = "fa fa-star";
         }
     }
+}
+
+function clickStarRating(a) {
+    slavDefenseRating = a;
+    let object;
+    for (let i=1; i<=5; i++) {
+        if (i<=a) {
+            document.getElementById("star"+i).className = "fa fa-star checked";
+        } else {
+            document.getElementById("star"+i).className = "fa fa-star";
+        }
+    }
+
+    //if this opening isn't already in the table then make one and post it to API
+    if (!checkIfExists(name)) {
+        if (slavDefenseComment) {
+            object = {
+                "name": name,
+                "rating": slavDefenseRating,
+                "comment": slavDefenseComment
+            }
+        } else {
+            object = {
+                "name": name,
+                "rating": slavDefenseRating,
+                "comment": "There are currently no comments for this opening."
+            }
+        }
+    } else {
+        //This is where I update the currently existing entry with name = name
+        console.log("This entry already exists (temporary message)");
+    }
+    makePostRequest("http://localhost:9000/ratings", object);
 }
 
 function showWarning(warningParagraph, parent) {
@@ -100,7 +144,7 @@ function handleCommentSubmit() {
     var comment = document.getElementById("commentBox").value;
     setComments(comment);
     if (comment=="") {
-        setComments("There are currently no comments for this opening.&emsp;&emsp;");
+        setComments("There are currently no comments for this opening.");
     }
     document.getElementById("commentBox").value="";
 }
@@ -120,21 +164,17 @@ function makeGetRequest(link, imagesOrRatings){
 function getOnLoad(imagesOrRatings) {
     req.onload = () => {
         if (req.status == 200 || req.status == 201) {
-            console.log("GET Request successful");
+            console.log("GET Request successful for: " + imagesOrRatings);
         } 
         else {
-            reject("GET Request failed");
+            reject("GET Request failed for: " + imagesOrRatings);
         }
-        //console.log(req.response);
         data = JSON.parse(req.response);
 
         if (imagesOrRatings == "images") {
-            console.log("imagesOrRatings was 'images'")
             imageFolder = data[10].imageLocation;
         } else if (imagesOrRatings == "ratings") {
-            console.log("imagesOrRatings was 'ratings'")
             listOfRatings = data;
-            console.log(listOfRatings)
             setRatingAndComments();
             //imports images table from API
             makeGetRequest("http://localhost:9000/images", "images"); // http://localhost:9000/images
@@ -145,18 +185,16 @@ function getOnLoad(imagesOrRatings) {
     }
 }
 
-//remove these after testing
-let testObj = {
-        "name": "Test",
-        "imageLocation": "Test2link//yada"
-    }
-let formTestString = JSON.stringify(testObj);
-//end of remove
+formTestString = {
+"name": "Slav Defense",
+"rating": 5,
+"comment": "good"
+}
 
 function makePostRequest(link, obj) {
     req.open("POST", link);
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    req.send(obj);
+    req.send(JSON.stringify(obj));
     postOnLoad();
 }
 
@@ -165,10 +203,31 @@ function postOnLoad() {
         if (req.status == 201 || req.status == 200) {
             console.log("req.status was: " + req.status);
             console.log("POST Request successful");
-        } 
-        else {
+            makeGetRequest("http://localhost:9000/ratings", "ratings");
+        } else {
             console.log("req.status was: " + req.status);
             console.log("POST Request failed");
+        }
+    }
+}
+
+
+function makeDeleteRequest(link) { // http://localhost:9000/ratings/*number here*
+    req.open("DELETE", link);
+    //req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send();
+    deleteOnLoad()
+}
+
+function deleteOnLoad() {
+    req.onload = () => {
+        if (req.status == 201 || req.status == 200) {
+            console.log("req.status was: " + req.status)
+            console.log("DELETE Request successful")
+            makeGetRequest("http://localhost:9000/ratings", "ratings");
+        } else {
+            console.log("req.status was: " + req.status);
+            console.log("DELETE Request failed");
         }
     }
 }
