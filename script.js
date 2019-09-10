@@ -3,13 +3,22 @@ var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess open
 
 var listOfRatings;
 
-
-//imports images table from API
-makeGetRequest("http://localhost:9000/images"); // http://localhost:9000/images
-
 let name = "Slav Defense"
 let slavDefenseRating;
 let slavDefenseComment;
+
+makeGetRequest("http://localhost:9000/ratings", "ratings")
+
+function setRatingAndComments() {
+    for (let row in listOfRatings) {
+        if (listOfRatings[row].name == name) {
+            slavDefenseRating = listOfRatings[row].rating;
+            starRating(slavDefenseRating);
+            slavDefenseComment = listOfRatings[row].comment;
+            setComments(slavDefenseComment);
+        }
+    }
+}
 
 var counter = 0;
 function clickResponse(a) {
@@ -49,7 +58,6 @@ function showWarning(warningParagraph, parent) {
     var noButton = document.createElement("button");
     yesButton.appendChild(document.createTextNode("Yes"));
     if (parent=="comment warning") {
-        console.log("Giving it replace with textbox capability");
         yesButton.setAttribute("onclick","hideWarning(); removeComments(); handleCommentSubmit()");
     } else {
         yesButton.setAttribute("onclick","hideWarning(); removeComments()");
@@ -104,26 +112,32 @@ function handleCommentSubmit() {
 
 function makeGetRequest(link, imagesOrRatings){
     req.open("GET", link);
-    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    //req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
     getOnLoad(imagesOrRatings);
 }
 
 function getOnLoad(imagesOrRatings) {
     req.onload = () => {
-        if (req.status ==200) {
+        if (req.status == 200 || req.status == 201) {
             console.log("GET Request successful");
         } 
         else {
             reject("GET Request failed");
         }
-        console.log(req.response);
+        //console.log(req.response);
         data = JSON.parse(req.response);
 
         if (imagesOrRatings == "images") {
+            console.log("imagesOrRatings was 'images'")
             imageFolder = data[10].imageLocation;
         } else if (imagesOrRatings == "ratings") {
+            console.log("imagesOrRatings was 'ratings'")
             listOfRatings = data;
+            console.log(listOfRatings)
+            setRatingAndComments();
+            //imports images table from API
+            makeGetRequest("http://localhost:9000/images", "images"); // http://localhost:9000/images
         } else {
             console.log("makeGetRequest(a) should only take arguments of 'images' or 'ratings'");
         }
