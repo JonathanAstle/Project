@@ -1,9 +1,15 @@
 const req = new XMLHttpRequest();
 var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess openings\\Slav Defense\\";
 
-makeGetRequest("http://localhost:9000/images");
+var listOfRatings;
 
+
+//imports images table from API
+makeGetRequest("http://localhost:9000/images"); // http://localhost:9000/images
+
+let name = "Slav Defense"
 let slavDefenseRating;
+let slavDefenseComment;
 
 var counter = 0;
 function clickResponse(a) {
@@ -13,7 +19,7 @@ function clickResponse(a) {
     } else {
         if (counter + a < 5 && counter + a >= 0) {
             counter += a;
-            document.getElementById("board").src = imageFolder +"\\"+ counter +".png";
+            document.getElementById("board").src = imageFolder + "\\" + counter + ".png";
         } else if (counter + a >= 5) {
             //make forward button greyed out
         } else {
@@ -96,25 +102,59 @@ function handleCommentSubmit() {
 
 
 
-function makeGetRequest(link){
+function makeGetRequest(link, imagesOrRatings){
     req.open("GET", link);
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
-    getOnLoad();
+    getOnLoad(imagesOrRatings);
 }
 
-function getOnLoad() {
+function getOnLoad(imagesOrRatings) {
     req.onload = () => {
         if (req.status ==200) {
-            console.log("200");
+            console.log("GET Request successful");
         } 
         else {
-            reject("Request Failed");
+            reject("GET Request failed");
         }
         console.log(req.response);
         data = JSON.parse(req.response);
-        console.log(data[10].imageLocation)
-        imageFolder = data[10].imageLocation
-        console.log("HERE" + imageFolder)
+
+        if (imagesOrRatings == "images") {
+            imageFolder = data[10].imageLocation;
+        } else if (imagesOrRatings == "ratings") {
+            listOfRatings = data;
+        } else {
+            console.log("makeGetRequest(a) should only take arguments of 'images' or 'ratings'");
+        }
+
+    }
+}
+
+//remove these after testing
+let testObj = {
+        "name": "Test",
+        "imageLocation": "Test2link//yada"
+    }
+let formTestString = JSON.stringify(testObj);
+//end of remove
+
+function makePostRequest(link, obj) {
+    req.open("POST", link);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send(obj);
+    postOnLoad();
+}
+
+function postOnLoad() {
+    req.onload = () => {
+        if (req.status == 201 || req.status == 200) {
+            console.log("req.status was: " + req.status);
+            console.log("POST Request successful");
+        } 
+        else {
+            console.log("req.status was: " + req.status);
+            console.log("POST Request failed");
+        }
     }
 }
