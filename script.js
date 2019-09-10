@@ -60,7 +60,6 @@ function starRating(a) {
 
 function clickStarRating(a) {
     slavDefenseRating = a;
-    let object;
     for (let i=1; i<=5; i++) {
         if (i<=a) {
             document.getElementById("star"+i).className = "fa fa-star checked";
@@ -69,6 +68,7 @@ function clickStarRating(a) {
         }
     }
 
+    let object;
     //if this opening isn't already in the table then make one and post it to API
     if (!checkIfExists(name)) {
         if (slavDefenseComment) {
@@ -77,18 +77,22 @@ function clickStarRating(a) {
                 "rating": slavDefenseRating,
                 "comment": slavDefenseComment
             }
-        } else {
+        } else { // ie. If the opening is already in the table
             object = {
                 "name": name,
                 "rating": slavDefenseRating,
-                "comment": "There are currently no comments for this opening."
+                "comment": "There are currently no comments for this opening.&emsp;&emsp"
             }
         }
     } else {
         //This is where I update the currently existing entry with name = name
         console.log("This entry already exists (temporary message)");
     }
-    makePostRequest("http://localhost:9000/ratings", object);
+
+    //if there is something in the object
+    if (object.name) {
+            makePostRequest("http://localhost:9000/ratings", object);
+    }
 }
 
 function showWarning(warningParagraph, parent) {
@@ -134,17 +138,28 @@ function hideWarning() {
 
 function removeComments() {
     document.getElementById("comments paragraph").innerHTML="There are currently no comments for this opening.&emsp;&emsp;";
+    slavDefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
+    let id;
+    for (let row in listOfRatings) {
+        if (listOfRatings[row].name == name) {
+            id = listOfRatings[row].id
+        }
+    }
+    if (slavDefenseRating == 0) {
+        makeDeleteRequest("http://localhost:9000/ratings/" + id)
+    }
 }
 
 function setComments(comment) {
     document.getElementById("comments paragraph").innerHTML=comment;
+    slavDefenseComment = comment;
 }
 
 function handleCommentSubmit() {
     var comment = document.getElementById("commentBox").value;
     setComments(comment);
     if (comment=="") {
-        setComments("There are currently no comments for this opening.");
+        setComments("There are currently no comments for this opening.&emsp;&emsp;");
     }
     document.getElementById("commentBox").value="";
 }
@@ -185,11 +200,6 @@ function getOnLoad(imagesOrRatings) {
     }
 }
 
-formTestString = {
-"name": "Slav Defense",
-"rating": 5,
-"comment": "good"
-}
 
 function makePostRequest(link, obj) {
     req.open("POST", link);
