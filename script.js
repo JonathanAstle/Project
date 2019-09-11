@@ -161,6 +161,14 @@ function handleCommentSubmit() {
     if (comment=="") {
         setComments("There are currently no comments for this opening.&emsp;&emsp;");
     }
+    if (!checkIfExists(name)) {
+        let object = {
+            "name": name,
+            "rating": slavDefenseRating,
+            "comment": slavDefenseComment
+        }
+        makePostRequest("http://localhost:9000/ratings", object)
+    }
     document.getElementById("commentBox").value="";
 }
 
