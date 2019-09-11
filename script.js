@@ -68,30 +68,43 @@ function clickStarRating(a) {
         }
     }
 
-    let object;
-    //if this opening isn't already in the table then make one and post it to API
-    if (!checkIfExists(name)) {
-        if (slavDefenseComment) {
-            object = {
-                "name": name,
-                "rating": slavDefenseRating,
-                "comment": slavDefenseComment
-            }
-        } else { // ie. If the opening is already in the table
-            object = {
-                "name": name,
-                "rating": slavDefenseRating,
-                "comment": "There are currently no comments for this opening.&emsp;&emsp"
+    let id;
+    //if it needs deleting
+    if(a==0 && slavDefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
+        //find the id of what needs deleting 
+        for (let row in listOfRatings) {
+            if (listOfRatings[row].name = name) {
+                id = listOfRatings[row].id
             }
         }
+        // ... and then delete it
+        makeDeleteRequest("http://localhost:9000/ratings/" + id)
     } else {
-        //This is where I update the currently existing entry with name = name
-        console.log("This entry already exists (temporary message)");
-    }
+        let object;
+        //if this opening isn't already in the table then make one and post it to API
+        if (!checkIfExists(name)) {
+            if (slavDefenseComment) {
+                object = {
+                    "name": name,
+                    "rating": slavDefenseRating,
+                    "comment": slavDefenseComment
+                }
+            } else { // ie. If the opening is already in the table
+                object = {
+                    "name": name,
+                    "rating": slavDefenseRating,
+                    "comment": "There are currently no comments for this opening.&emsp;&emsp;"
+                }
+            }
+        } else {
+            //This is where I update the currently existing entry with name = name
+            console.log("This entry already exists (temporary message)");
+        }
 
-    //if there is something in the object
-    if (object.name) {
-            makePostRequest("http://localhost:9000/ratings", object);
+        //if there is something in the object
+        if (object.name) {
+                makePostRequest("http://localhost:9000/ratings", object);
+        }
     }
 }
 
