@@ -3,11 +3,20 @@ var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess open
 
 var listOfRatings;
 
+let id;
 let name = "Slav Defense"
-let slavDefenseRating; //undefined if not 
+let slavDefenseRating; 
 let slavDefenseComment;
 
 makeGetRequest("http://localhost:9000/ratings", "ratings")
+
+function getId() {
+    for (let row in listOfRatings) {
+        if (listOfRatings[row].name = name) {
+            id = listOfRatings[row].id
+        }
+    }
+}
 
 function setRatingAndComments() {
     for (let row in listOfRatings) {
@@ -20,7 +29,6 @@ function setRatingAndComments() {
     }
 }
 
-//returns true if the name exists in listOfRatings
 function checkIfExists(name) {
     for (let row in listOfRatings) {
         if (listOfRatings[row].name == name) {
@@ -68,16 +76,9 @@ function clickStarRating(a) {
         }
     }
 
-    let id;
     //if it needs deleting
     if(a==0 && slavDefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
-        //find the id of what needs deleting 
-        for (let row in listOfRatings) {
-            if (listOfRatings[row].name = name) {
-                id = listOfRatings[row].id
-            }
-        }
-        // ... and then delete it
+        getId();
         makeDeleteRequest("http://localhost:9000/ratings/" + id)
     } else {
         let object;
@@ -89,21 +90,31 @@ function clickStarRating(a) {
                     "rating": slavDefenseRating,
                     "comment": slavDefenseComment
                 }
-            } else { // ie. If the opening is already in the table
+            } else { 
                 object = {
                     "name": name,
                     "rating": slavDefenseRating,
                     "comment": "There are currently no comments for this opening.&emsp;&emsp;"
                 }
+            } 
+            makePostRequest("http://localhost:9000/ratings", object);
+        } else { 
+            if (slavDefenseComment) {
+                object = {
+                    "name": name, 
+                    "rating": slavDefenseRating,
+                    "comment": slavDefenseComment
+                }
+            } else { 
+                object = {
+                    "name": name,
+                    "rating": rating,
+                    "comment": "There are currently no comments for this opening.&emsp;&emsp;"
+                }
             }
-        } else {
-            //This is where I update the currently existing entry with name = name
-            console.log("This entry already exists (temporary message)");
-        }
-
-        //if there is something in the object
-        if (object.name) {
-                makePostRequest("http://localhost:9000/ratings", object);
+            getId();
+            console.log("Updating pre-existing entry...");
+            makePutRequest("http://localhost:9000/ratings/" + id, object);
         }
     }
 }
@@ -152,14 +163,17 @@ function hideWarning() {
 function removeComments() {
     document.getElementById("comments paragraph").innerHTML="There are currently no comments for this opening.&emsp;&emsp;";
     slavDefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
-    let id;
-    for (let row in listOfRatings) {
-        if (listOfRatings[row].name == name) {
-            id = listOfRatings[row].id
-        }
-    }
+    getId();
     if (slavDefenseRating == 0) {
         makeDeleteRequest("http://localhost:9000/ratings/" + id)
+    } else {
+        let object = {
+            "name": name,
+            "rating": slavDefenseRating,
+            "comment": slavDefenseComment
+        }
+        console.log("Updating pre-existing entry...");
+        makePutRequest("http://localhost:9000/ratings/" + id, object);
     }
 }
 
@@ -181,6 +195,15 @@ function handleCommentSubmit() {
             "comment": slavDefenseComment
         }
         makePostRequest("http://localhost:9000/ratings", object)
+    } else {
+        let object = {
+            "name": name,
+            "rating": slavDefenseRating,
+            "comment": slavDefenseComment            
+        }
+        getId();
+        console.log("Updating pre-existing entry...");
+        makePutRequest("http://localhost:9000/ratings/" + id, object);
     }
     document.getElementById("commentBox").value="";
 }
@@ -192,7 +215,6 @@ function handleCommentSubmit() {
 
 function makeGetRequest(link, imagesOrRatings){
     req.open("GET", link);
-    //req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
     getOnLoad(imagesOrRatings);
 }
@@ -212,10 +234,9 @@ function getOnLoad(imagesOrRatings) {
         } else if (imagesOrRatings == "ratings") {
             listOfRatings = data;
             setRatingAndComments();
-            //imports images table from API
-            makeGetRequest("http://localhost:9000/images", "images"); // http://localhost:9000/images
+            makeGetRequest("http://localhost:9000/images", "images"); 
         } else {
-            console.log("makeGetRequest(a) should only take arguments of 'images' or 'ratings'");
+            console.log("makeGetRequest(link, imagesOrRatings) should only take arguments of 'images' or 'ratings'");
         }
 
     }
@@ -243,9 +264,8 @@ function postOnLoad() {
 }
 
 
-function makeDeleteRequest(link) { // http://localhost:9000/ratings/*number here*
+function makeDeleteRequest(link) { 
     req.open("DELETE", link);
-    //req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
     deleteOnLoad()
 }
@@ -259,6 +279,27 @@ function deleteOnLoad() {
         } else {
             console.log("req.status was: " + req.status);
             console.log("DELETE Request failed");
+        }
+    }
+}
+
+
+function makePutRequest(link, obj) {
+    req.open("Put", link);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send(JSON.stringify(obj));
+    putOnLoad();
+}
+
+function putOnLoad() {
+    req.onload = () => {
+        if (req.status == 201 || req.status == 200) {
+            console.log("req.status was: " + req.status);
+            console.log("PUT Request successful");
+            makeGetRequest("http://localhost:9000/ratings", "ratings");
+        } else {
+            console.log("req.status was: " + req.status);
+            console.log("PUT Request failed");
         }
     }
 }
