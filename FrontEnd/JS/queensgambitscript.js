@@ -1,4 +1,4 @@
-let name = "Slav Defense"
+let name = "Queen's Gambit"
 var imagesLink = "http://localhost:9000/images";
 var ratingsLink = "http://localhost:9000/ratings";
 
@@ -8,8 +8,8 @@ let ratingsId;
 let ratingsIndex;
 let imagesId;
 let imagesIndex;
-let slavDefenseRating; 
-let slavDefenseComment;
+let DefenseRating; 
+let DefenseComment;
 let imagesArray;
 let ratingsArray;
 let imagesObject;
@@ -69,10 +69,10 @@ function getImagesId() {
 function setRatingAndComments() {
     for (let row in ratingsArray) {
         if (ratingsArray[row].name == name) {
-            slavDefenseRating = ratingsArray[row].rating;
-            starRating(slavDefenseRating);
-            slavDefenseComment = ratingsArray[row].comment;
-            setComments(slavDefenseComment);
+            DefenseRating = ratingsArray[row].rating;
+            starRating(DefenseRating);
+            DefenseComment = ratingsArray[row].comment;
+            setComments(DefenseComment);
         }
     }
 }
@@ -119,7 +119,7 @@ function starRating(a) {
 }
 
 function clickStarRating(a) {
-    slavDefenseRating = a;
+    DefenseRating = a;
     for (let i=1; i<=5; i++) {
         if (i<=a) {
             document.getElementById("star"+i).className = "fa fa-star checked";
@@ -129,38 +129,38 @@ function clickStarRating(a) {
     }
 
     //if it needs deleting
-    if(a==0 && slavDefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
+    if(a==0 && DefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
         getRatingsId();
         makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
     } else {
         let object;
         //if this opening isn't already in the table then make one and post it to API
         if (!checkIfExists(name)) {
-            if (slavDefenseComment) {
+            if (DefenseComment) {
                 object = {
                     "name": name,
-                    "rating": slavDefenseRating,
-                    "comment": slavDefenseComment
+                    "rating": DefenseRating,
+                    "comment": DefenseComment
                 }
             } else { 
                 object = {
                     "name": name,
-                    "rating": slavDefenseRating,
+                    "rating": DefenseRating,
                     "comment": "There are currently no comments for this opening.&emsp;&emsp;"
                 }
             } 
             makePostRequest("http://localhost:9000/ratings", object);
         } else { 
-            if (slavDefenseComment) {
+            if (DefenseComment) {
                 object = {
                     "name": name, 
-                    "rating": slavDefenseRating,
-                    "comment": slavDefenseComment
+                    "rating": DefenseRating,
+                    "comment": DefenseComment
                 }
             } else { 
                 object = {
                     "name": name,
-                    "rating": slavDefenseRating,
+                    "rating": DefenseRating,
                     "comment": "There are currently no comments for this opening.&emsp;&emsp;"
                 }
             }
@@ -214,15 +214,15 @@ function hideWarning() {
 
 function removeComments() {
     document.getElementById("comments paragraph").innerHTML="There are currently no comments for this opening.&emsp;&emsp;";
-    slavDefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
+    DefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
     getRatingsId();
-    if (slavDefenseRating == 0) {
+    if (DefenseRating == 0) {
         makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
     } else {
         let object = {
             "name": name,
-            "rating": slavDefenseRating,
-            "comment": slavDefenseComment
+            "rating": DefenseRating,
+            "comment": DefenseComment
         }
         console.log("Updating pre-existing entry...");
         makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
@@ -231,7 +231,7 @@ function removeComments() {
 
 function setComments(comment) {
     document.getElementById("comments paragraph").innerHTML=comment;
-    slavDefenseComment = comment;
+    DefenseComment = comment;
 }
 
 function handleCommentSubmit() {
@@ -243,15 +243,15 @@ function handleCommentSubmit() {
     if (!checkIfExists(name)) {
         let object = {
             "name": name,
-            "rating": slavDefenseRating,
-            "comment": slavDefenseComment
+            "rating": DefenseRating,
+            "comment": DefenseComment
         }
         makePostRequest("http://localhost:9000/ratings", object)
     } else {
         let object = {
             "name": name,
-            "rating": slavDefenseRating,
-            "comment": slavDefenseComment            
+            "rating": DefenseRating,
+            "comment": DefenseComment            
         }
         getRatingsId();
         console.log("Updating pre-existing entry...");
