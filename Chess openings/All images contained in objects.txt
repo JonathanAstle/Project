@@ -1,0 +1,110 @@
+{
+	"name": "Queen's Gambit",
+	"img1": "https://i.ibb.co/T4NhvTX/0.png",
+	"img2": "https://i.ibb.co/Nxxf0xd/1.png",
+	"img3": "https://i.ibb.co/0JmgZ07/2.png",
+	"img4": "https://i.ibb.co/KDG2Gvk/3.png"
+}
+
+{
+	"name": "Sicilian Defense",
+	"img1": "https://i.ibb.co/P4FCksb/0.png",
+	"img2": "https://i.ibb.co/dPbgDdJ/1.png",
+	"img3": "https://i.ibb.co/34s9wXW/2.png"
+}
+
+{
+	"name": "King's Gambit",
+	"img1": "https://i.ibb.co/T4NhvTX/0.png",
+	"img2": "https://i.ibb.co/mzCcpd8/1.png",
+	"img3": "https://i.ibb.co/YfGBTYC/2.png",
+	"img4": "https://i.ibb.co/JdBvhdZ/3.png",
+	"img5": "https://i.ibb.co/QnP6NhS/4.png",
+	"img6": "https://i.ibb.co/9WZjMnJ/5.png"
+}
+
+{
+	"name": "Nimzo-Indian Defense",
+	"img1": "https://i.ibb.co/P4FCksb/0.png",
+	"img2": "https://i.ibb.co/F6Hcq1y/1.png",
+	"img3": "https://i.ibb.co/Ydg4v5r/2.png",
+	"img4": "https://i.ibb.co/2NDvCx4/3.png",
+	"img5": "https://i.ibb.co/YNcWBMb/4.png",
+	"img6": "https://i.ibb.co/DRbtWy8/5.png",
+	"img7": "https://i.ibb.co/FqNCFbP/6.png"
+}
+
+{
+	"name": "Ruy Lopez",
+	"img1": "https://i.ibb.co/T4NhvTX/0.png",
+	"img2": "https://i.ibb.co/mzCcpd8/1.png",
+	"img3": "https://i.ibb.co/YfGBTYC/2.png",
+	"img4": "https://i.ibb.co/hf6LM04/3.png",
+	"img5": "https://i.ibb.co/MPVKDVt/4.png",
+	"img6": "https://i.ibb.co/RvP4YNd/5.png"
+}
+
+{
+	"name": "French Defense",
+	"img1": "https://i.ibb.co/P4FCksb/0.png",
+	"img2": "https://i.ibb.co/dPbgDdJ/1.png",
+	"img3": "https://i.ibb.co/dgnjnDW/2.png",
+	"img4": "https://i.ibb.co/hKDRbFH/3.png",
+	"img5": "https://i.ibb.co/DDL62JQ/4.png"
+}
+
+{
+	"name": "Danish Gambit",
+	"img1": "https://i.ibb.co/B3jp8qD/1.png",
+	"img2": "https://i.ibb.co/QCFvmw3/2.png",
+	"img3": "https://i.ibb.co/dkWX9Gk/3.png",
+	"img4": "https://i.ibb.co/qmTyqXF/4.png",
+	"img5": "https://i.ibb.co/zrsTbR7/5.png",
+	"img6": "https://i.ibb.co/Kmfgtjg/6.png"
+}
+
+{
+	"name": "Fried Liver Attack",
+	"img1": "https://i.ibb.co/T4NhvTX/0.png",
+	"img2": "https://i.ibb.co/mzCcpd8/1.png",
+	"img3": "https://i.ibb.co/YfGBTYC/2.png",
+	"img4": "https://i.ibb.co/hf6LM04/3.png",
+	"img5": "https://i.ibb.co/MPVKDVt/4.png",
+	"img6": "https://i.ibb.co/f1bbjD8/5.png",
+	"img7": "https://i.ibb.co/DKkjTWG/6.png",
+	"img8": "https://i.ibb.co/41jtksC/7.png",
+	"img9": "https://i.ibb.co/tp0nk6g/8.png",
+	"img10": "https://i.ibb.co/qFyRjh3/9.png",
+	"img11": "https://i.ibb.co/D7VCfFF/10.png",
+	"img12": "https://i.ibb.co/vV0731t/11.png",
+	"img13": "https://i.ibb.co/7Rkft8P/12.png",
+	"img14": "https://i.ibb.co/Yp1V4vh/13.png"
+}
+
+{
+	"name": "Caro Kann",
+	"img1": "https://i.ibb.co/P4FCksb/0.png",
+	"img2": "https://i.ibb.co/dPbgDdJ/1.png",
+	"img3": "https://i.ibb.co/BLQdQQz/3.png",
+	"img4": "https://i.ibb.co/FbZw6vS/4.png",
+	"img5": "https://i.ibb.co/h2czxV4/5.png"
+}
+
+{
+	"name": "London System",
+	"img1": "https://i.ibb.co/T4NhvTX/0.png",
+	"img2": "https://i.ibb.co/Nxxf0xd/1.png",
+	"img3": "https://i.ibb.co/0JmgZ07/2.png",
+	"img4": "https://i.ibb.co/rf6Rm61/4.png",
+	"img5": "https://i.ibb.co/7WbmYP6/5.png",
+	"img6": "https://i.ibb.co/SnPRPRB/6.png"
+}
+
+{
+	"name": "Slav Defense",
+	"img1": "https://i.ibb.co/P4FCksb/0.png",
+	"img2": "https://i.ibb.co/F6Hcq1y/1.png",
+	"img3": "https://i.ibb.co/VCZKt7R/2.png",
+	"img4": "https://i.ibb.co/FBXytcG/3.png",
+	"img5": "https://i.ibb.co/PhL8HJg/4.png"
+}

@@ -1,37 +1,85 @@
-const req = new XMLHttpRequest();
-var imageFolder; // "C:\\Users\\Admin\\Documents\\Individual Project\\Chess openings\\Slav Defense\\";
-
-var listOfRatings;
-
-let id;
 let name = "Slav Defense"
+var imagesLink = "http://localhost:9000/images";
+var ratingsLink = "http://localhost:9000/ratings";
+
+const req = new XMLHttpRequest();
+
+let ratingsId;
+let ratingsIndex;
+let imagesId;
+let imagesIndex;
 let slavDefenseRating; 
 let slavDefenseComment;
+let imagesArray;
+let ratingsArray;
+let imagesObject;
+let list;
 
-makeGetRequest("http://localhost:9000/ratings", "ratings")
+onStartUp();
 
-function getId() {
-    for (let row in listOfRatings) {
-        if (listOfRatings[row].name = name) {
-            id = listOfRatings[row].id
+function onStartUp() {
+    req.open("GET", imagesLink);
+    req.send();
+    req.onload = () => {
+        if (req.status == 200 || req.status == 201) {
+            console.log("GET Request successful for images");
+            imagesArray = JSON.parse(req.response);
+            getImagesId();
+            imagesObject = imagesArray[imagesIndex];
+            document.getElementById("board").src = imagesObject["img1"];
+        } 
+        else {
+            reject("GET Request failed for images");
+        }
+
+        req.open("GET", ratingsLink);
+        req.send();
+        req.onload = () => {
+            if (req.status == 200 || req.status == 201) {
+                console.log("GET Request successful for ratings");
+                ratingsArray = JSON.parse(req.response);
+                getRatingsId();
+                setRatingAndComments();
+            } 
+            else {
+                reject("GET Request failed for images");
+            }
+        }
+    }
+}
+
+function getRatingsId() {
+    for (let row in ratingsArray) {
+        if (ratingsArray[row].name == name) {
+            ratingsId = ratingsArray[row].id;
+            ratingsIndex = parseInt(row); 
+        }
+    }
+}
+
+function getImagesId() {
+    for (let row in imagesArray) {
+        if (imagesArray[row].name == name) {
+            imagesId = imagesArray[row].id;
+            imagesIndex = parseInt(row);
         }
     }
 }
 
 function setRatingAndComments() {
-    for (let row in listOfRatings) {
-        if (listOfRatings[row].name == name) {
-            slavDefenseRating = listOfRatings[row].rating;
+    for (let row in ratingsArray) {
+        if (ratingsArray[row].name == name) {
+            slavDefenseRating = ratingsArray[row].rating;
             starRating(slavDefenseRating);
-            slavDefenseComment = listOfRatings[row].comment;
+            slavDefenseComment = ratingsArray[row].comment;
             setComments(slavDefenseComment);
         }
     }
 }
 
 function checkIfExists(name) {
-    for (let row in listOfRatings) {
-        if (listOfRatings[row].name == name) {
+    for (let row in ratingsArray) {
+        if (ratingsArray[row].name == name) {
             return true;
             break;
         } 
@@ -39,21 +87,25 @@ function checkIfExists(name) {
     return false;
 }
 
-var counter = 0;
+var counter = 1;
 function clickResponse(a) {
     if (a==0) {
-        document.getElementById("board").src = imageFolder + "\\0.png";
-        counter=0;
+        document.getElementById("board").src = imagesObject.img1;
+        counter=1;
     } else {
-        if (counter + a < 5 && counter + a >= 0) {
+        if (imagesObject["img"+(counter+a)]) {
             counter += a;
-            document.getElementById("board").src = imageFolder + "\\" + counter + ".png";
-        } else if (counter + a >= 5) {
-            //make forward button greyed out
-        } else {
-            //make backward button greyed out
-        }
+            document.getElementById("board").src = imagesObject["img"+counter];
+        } 
     }
+}
+
+function lengthOfObject(obj) {
+    var L=0;
+    $.each(obj, function(i, elem) {
+        L++;
+    });
+    return L;
 }
 
 function starRating(a) {
@@ -78,8 +130,8 @@ function clickStarRating(a) {
 
     //if it needs deleting
     if(a==0 && slavDefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
-        getId();
-        makeDeleteRequest("http://localhost:9000/ratings/" + id)
+        getRatingsId();
+        makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
     } else {
         let object;
         //if this opening isn't already in the table then make one and post it to API
@@ -108,13 +160,13 @@ function clickStarRating(a) {
             } else { 
                 object = {
                     "name": name,
-                    "rating": rating,
+                    "rating": slavDefenseRating,
                     "comment": "There are currently no comments for this opening.&emsp;&emsp;"
                 }
             }
-            getId();
+            getRatingsId();
             console.log("Updating pre-existing entry...");
-            makePutRequest("http://localhost:9000/ratings/" + id, object);
+            makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
         }
     }
 }
@@ -163,9 +215,9 @@ function hideWarning() {
 function removeComments() {
     document.getElementById("comments paragraph").innerHTML="There are currently no comments for this opening.&emsp;&emsp;";
     slavDefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
-    getId();
+    getRatingsId();
     if (slavDefenseRating == 0) {
-        makeDeleteRequest("http://localhost:9000/ratings/" + id)
+        makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
     } else {
         let object = {
             "name": name,
@@ -173,7 +225,7 @@ function removeComments() {
             "comment": slavDefenseComment
         }
         console.log("Updating pre-existing entry...");
-        makePutRequest("http://localhost:9000/ratings/" + id, object);
+        makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
     }
 }
 
@@ -201,9 +253,9 @@ function handleCommentSubmit() {
             "rating": slavDefenseRating,
             "comment": slavDefenseComment            
         }
-        getId();
+        getRatingsId();
         console.log("Updating pre-existing entry...");
-        makePutRequest("http://localhost:9000/ratings/" + id, object);
+        makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
     }
     document.getElementById("commentBox").value="";
 }
@@ -230,15 +282,14 @@ function getOnLoad(imagesOrRatings) {
         data = JSON.parse(req.response);
 
         if (imagesOrRatings == "images") {
-            imageFolder = data[10].imageLocation;
+            imagesArray = data;
         } else if (imagesOrRatings == "ratings") {
-            listOfRatings = data;
+            ratingsArray = data;
             setRatingAndComments();
             makeGetRequest("http://localhost:9000/images", "images"); 
         } else {
             console.log("makeGetRequest(link, imagesOrRatings) should only take arguments of 'images' or 'ratings'");
         }
-
     }
 }
 
