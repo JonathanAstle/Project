@@ -1,6 +1,6 @@
 let name = "Queen's Gambit"
-var imagesLink = "http://34.89.9.121:9000/images";
-var ratingsLink = "http://34.89.9.121:9000/ratings";
+var imagesLink = "http://34.89.9.121:9000/images"; //localhost:9000/images
+var ratingsLink = "http://34.89.9.121:9000/ratings"; //localhost:9000/ratings
 
 const req = new XMLHttpRequest();
 //test DELETE THIS LINE
