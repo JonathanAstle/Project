@@ -34,6 +34,12 @@ JUnit, Mockito and Selenium tests have been used for testing.
 * Trello - Project Tracking
 * GCP - Live Environment
 
+## Deployment
+
+The deployment process was automated using Jenkins, with a webhook to GitHub which was triggered with every push event
+
+![Deployment](/deployment.png)
+
 ## Front End Design
 
 ### Wireframe
