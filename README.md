@@ -23,6 +23,12 @@ JUnit, Mockito and Selenium tests have been used for testing.
 
 [Link to Final Surefire Report for Mockito tests](https://github.com/JonathanAstle/Project/blob/master/Documentation/surefire-report.html)
 
+## Deployment
+
+The deployment process was automated using Jenkins, with a webhook to GitHub which was triggered with every push event
+
+![Deployment](/deployment.png)
+
 ## Technologies used
 
 * H2 Database Engine - Database
@@ -33,12 +39,6 @@ JUnit, Mockito and Selenium tests have been used for testing.
 * Git - VCS
 * Trello - Project Tracking
 * GCP - Live Environment
-
-## Deployment
-
-The deployment process was automated using Jenkins, with a webhook to GitHub which was triggered with every push event
-
-![Deployment](/deployment.png)
 
 ## Front End Design
 
