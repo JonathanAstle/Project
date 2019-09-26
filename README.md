@@ -21,7 +21,7 @@ The website interacts with two h2 databases:
 
 JUnit, Mockito and Selenium tests have been used for automated testing, and SonarLint/SonarQube for static reporting and refactoring.
 
-[Link to Final Surefire Report](/surefire-report.html)
+[Link to Final Surefire Report](https://github.com/JonathanAstle/Project/blob/master/Documentation/surefire-report.html)
 
 ## Technologies used
 
