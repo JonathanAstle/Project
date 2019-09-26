@@ -14,14 +14,14 @@ In fulfilment of the solo project assignment due Friday week 8 at QA consulting.
 I created a chess openings website that allows a user to rate openings out of five stars and leave a comment. 
 
 The website interacts with two h2 databases:
-*One that stores star ratings and comments with full CRUD functionality
-*The second stores image locations for each opening 
+* One that stores star ratings and comments with full CRUD functionality
+* The second stores image locations for each opening
 
 ## Testing
 
-JUnit, Mockito and Selenium tests have been used for automated testing, and SonarLint/SonarQube for static reporting and refactoring.
+JUnit, Mockito and Selenium tests have been used for testing.
 
-[Link to Final Surefire Report](https://github.com/JonathanAstle/Project/blob/master/Documentation/surefire-report.html)
+[Link to Final Surefire Report for Mockito tests](https://github.com/JonathanAstle/Project/blob/master/Documentation/surefire-report.html)
 
 ## Technologies used
 
