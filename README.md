@@ -4,10 +4,10 @@ In fulfilment of the solo project assignment due Friday week 8 at QA consulting.
 
 ## The Brief
 
-*A Trello board 
-*An application with a functioning front-end website and integrated APIs.
-*Automated tests for validation of the application. 
-*Code fully integrated into a VCS which will subsequently be built through a CI server and deployed to a cloud-based virtual machine
+* A Trello board 
+* An application with a functioning front-end website and integrated APIs.
+* Automated tests for validation of the application. 
+* Code fully integrated into a VCS which will subsequently be built through a CI server and deployed to a cloud-based virtual machine
 
 ## Solution
 
