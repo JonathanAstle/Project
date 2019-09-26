@@ -1,6 +1,6 @@
 # Chess Openings Website
 
-In fulfilment of the solo project assignment due Monday week 7 at QA consulting.
+In fulfilment of the solo project assignment due Friday week 8 at QA consulting.
 
 ## The Brief
 
