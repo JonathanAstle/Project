@@ -46,6 +46,8 @@ JUnit, Mockito and Selenium tests have been used for automated testing, and Sona
 
 ## Improvements for the future
 
+* Include Grand Master's comments on each opening's respective page
+* Include performance scores for each opening
 * Take a more TDD approach
 * Provide a report for selenium tests
 
