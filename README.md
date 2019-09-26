@@ -44,6 +44,11 @@ JUnit, Mockito and Selenium tests have been used for automated testing, and Sona
 
 ![Appearance](/website.png)
 
+## Improvements for the future
+
+* Take a more TDD approach
+* Provide a report for selenium tests
+
 ## Authors
 
 Jonathan Astle
