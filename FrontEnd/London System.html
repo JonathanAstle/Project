@@ -21,18 +21,18 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
-  <a href="index.html"><h3 class="w3-padding-64 w3-center"><b>CHESS<br>OPENINGS</b></h3></a>
-  <a href="Queen's Gambit.html" class="w3-bar-item w3-button">QUEEN'S GAMBIT</a>
-  <a href="Sicilian Defense.html" class="w3-bar-item w3-button">SICILIAN DEFENSE</a>
-  <a href="King's Gambit.html" class="w3-bar-item w3-button">KING'S GAMBIT</a> 
-  <a href="Nimzo-Indian Defense.html" class="w3-bar-item w3-button">NIMZO-INDIAN DEFENSE</a>
-  <a href="Ruy Lopez.html" class="w3-bar-item w3-button">RUY LOPEZ</a>
-  <a href="French Defense.html" class="w3-bar-item w3-button">FRENCH DEFENSE</a>
-  <a href="Danish Gambit.html" class="w3-bar-item w3-button">DANISH GAMBIT</a>
-  <a href="Fried Liver Attack.html" class="w3-bar-item w3-button">FRIED LIVER ATTACK</a>
-  <a href="Caro Kann.html" class="w3-bar-item w3-button">CARO KANN</a>
-  <a href="London System.html" class="w3-bar-item w3-button">LONDON SYSTEM</a>
-  <a href="Slav Defense.html" class="w3-bar-item w3-button">SLAV DEFENSE</a> 
+  <a href="index.html" id="Chess Openings Button"><h3 class="w3-padding-64 w3-center"><b>CHESS<br>OPENINGS</b></h3></a>
+  <a href="Queen's Gambit.html" id="Queen's Gambit Button" class="w3-bar-item w3-button">QUEEN'S GAMBIT</a>
+  <a href="Sicilian Defense.html" id="Sicilian Defense Button" class="w3-bar-item w3-button">SICILIAN DEFENSE</a>
+  <a href="King's Gambit.html" id="King's Gambit Button" class="w3-bar-item w3-button">KING'S GAMBIT</a> 
+  <a href="Nimzo-Indian Defense.html" id="Nimzo-Indian Defense Button" class="w3-bar-item w3-button">NIMZO-INDIAN DEFENSE</a>
+  <a href="Ruy Lopez.html" id="Ruy Lopez Button" class="w3-bar-item w3-button">RUY LOPEZ</a>
+  <a href="French Defense.html" id="French Defense Button" class="w3-bar-item w3-button">FRENCH DEFENSE</a>
+  <a href="Danish Gambit.html" id="Danish Gambit Button" class="w3-bar-item w3-button">DANISH GAMBIT</a>
+  <a href="Fried Liver Attack.html" id="Fried Liver Attack Button" class="w3-bar-item w3-button">FRIED LIVER ATTACK</a>
+  <a href="Caro Kann.html" id="Caro Kann Button" class="w3-bar-item w3-button">CARO KANN</a>
+  <a href="London System.html" id="London System Button" class="w3-bar-item w3-button">LONDON SYSTEM</a>
+  <a href="Slav Defense.html" id="Slav Defense Button" class="w3-bar-item w3-button">SLAV DEFENSE</a> 
 </nav>
 
 <!-- !PAGE CONTENT! -->
@@ -88,7 +88,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <div class="w3-section">
             <input class="w3-input w3-border" type="text" name="Message" id="commentBox" required placeholder="Type your comments in this box">
           </div>
-          <button class="w3-button w3-block w3-grey w3-margin-bottom" onclick="showWarning('comment warning text', 'comment warning')">Submit comment</button>
+          <button id="submit button" class="w3-button w3-block w3-grey w3-margin-bottom" onclick="showWarning('comment warning text', 'comment warning')">Submit comment</button>
 
           <div id="comment warning">
             <p id="comment warning text" style="color: rgb(255, 153, 153)"></p>
@@ -100,7 +100,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   </div>
 
-<script src="JS\londonsystemscript.js"></script>
+  <script src="JS\script.js"></script>
 
 
 </body>

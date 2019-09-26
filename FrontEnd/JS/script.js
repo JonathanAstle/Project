@@ -1,6 +1,6 @@
-let name = "King's Gambit"
-var imagesLink = "http://localhost:9000/images";
-var ratingsLink = "http://localhost:9000/ratings";
+let name;
+var imagesLink = "http://34.89.9.121:9000/images"; //localhost:9000/images
+var ratingsLink = "http://34.89.9.121:9000/ratings"; //localhost:9000/ratings
 
 const req = new XMLHttpRequest();
 
@@ -45,6 +45,38 @@ function onStartUp() {
                 reject("GET Request failed for images");
             }
         }
+    }
+    setName();
+    console.log(pageName)
+}
+
+function setName() {
+    pageName = document.getElementById("openingName").innerHTML;
+
+    if (pageName == "QUEEN'S GAMBIT") {
+        name = "Queen's Gambit"
+    } else if (pageName == "SICILIAN DEFENSE") {
+        name = "Sicilian Defense"
+    } else if (pageName == "KING'S GAMBIT") {
+        name = "King's Gambit"
+    } else if (pageName == "NIMZO-INDIAN DEFENSE") {
+        name = "Nimzo-Indian Defense"
+    } else if (pageName == "RUY LOPEZ") {
+        name = "Ruy Lopez"
+    } else if (pageName == "FRENCH DEFENSE") {
+        name = "French Defense"
+    } else if (pageName == "DANISH GAMBIT") {
+        name = "Danish Gambit"
+    } else if (pageName == "FRIED LIVER ATTACK") {
+        name = "Fried Liver Attack"
+    } else if (pageName == "CARO KANN") {
+        name = "Caro Kann"
+    } else if (pageName == "LONDON SYSTEM") {
+        name = "London System"
+    } else if (pageName == "SLAV DEFENSE") {
+        name = "Slav Defense"
+    } else {
+        console.log("The name is not set for this page! *This should never happen*")
     }
 }
 
@@ -131,7 +163,7 @@ function clickStarRating(a) {
     //if it needs deleting
     if(a==0 && DefenseComment=="There are currently no comments for this opening.&emsp;&emsp;") {
         getRatingsId();
-        makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
+        makeDeleteRequest(ratingsLink + "/" + ratingsId)
     } else {
         let object;
         //if this opening isn't already in the table then make one and post it to API
@@ -149,7 +181,7 @@ function clickStarRating(a) {
                     "comment": "There are currently no comments for this opening.&emsp;&emsp;"
                 }
             } 
-            makePostRequest("http://localhost:9000/ratings", object);
+            makePostRequest(ratingsLink, object);
         } else { 
             if (DefenseComment) {
                 object = {
@@ -166,7 +198,7 @@ function clickStarRating(a) {
             }
             getRatingsId();
             console.log("Updating pre-existing entry...");
-            makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
+            makePutRequest(ratingsLink + "/" + ratingsId, object);
         }
     }
 }
@@ -217,7 +249,7 @@ function removeComments() {
     DefenseComment = "There are currently no comments for this opening.&emsp;&emsp;";
     getRatingsId();
     if (DefenseRating == 0) {
-        makeDeleteRequest("http://localhost:9000/ratings/" + ratingsId)
+        makeDeleteRequest(ratingsLink + "/" + ratingsId)
     } else {
         let object = {
             "name": name,
@@ -225,7 +257,7 @@ function removeComments() {
             "comment": DefenseComment
         }
         console.log("Updating pre-existing entry...");
-        makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
+        makePutRequest(ratingsLink + "/" + ratingsId, object);
     }
 }
 
@@ -246,7 +278,7 @@ function handleCommentSubmit() {
             "rating": DefenseRating,
             "comment": DefenseComment
         }
-        makePostRequest("http://localhost:9000/ratings", object)
+        makePostRequest(ratingsLink, object)
     } else {
         let object = {
             "name": name,
@@ -255,7 +287,7 @@ function handleCommentSubmit() {
         }
         getRatingsId();
         console.log("Updating pre-existing entry...");
-        makePutRequest("http://localhost:9000/ratings/" + ratingsId, object);
+        makePutRequest(ratingsLink + "/" + ratingsId, object);
     }
     document.getElementById("commentBox").value="";
 }
@@ -286,7 +318,7 @@ function getOnLoad(imagesOrRatings) {
         } else if (imagesOrRatings == "ratings") {
             ratingsArray = data;
             setRatingAndComments();
-            makeGetRequest("http://localhost:9000/images", "images"); 
+            //makeGetRequest("http://localhost:9000/images", "images"); 
         } else {
             console.log("makeGetRequest(link, imagesOrRatings) should only take arguments of 'images' or 'ratings'");
         }
@@ -306,7 +338,7 @@ function postOnLoad() {
         if (req.status == 201 || req.status == 200) {
             console.log("req.status was: " + req.status);
             console.log("POST Request successful");
-            makeGetRequest("http://localhost:9000/ratings", "ratings");
+            makeGetRequest(ratingsLink, "ratings");
         } else {
             console.log("req.status was: " + req.status);
             console.log("POST Request failed");
@@ -326,7 +358,7 @@ function deleteOnLoad() {
         if (req.status == 201 || req.status == 200) {
             console.log("req.status was: " + req.status)
             console.log("DELETE Request successful")
-            makeGetRequest("http://localhost:9000/ratings", "ratings");
+            makeGetRequest(ratingsLink, "ratings");
         } else {
             console.log("req.status was: " + req.status);
             console.log("DELETE Request failed");
@@ -347,7 +379,7 @@ function putOnLoad() {
         if (req.status == 201 || req.status == 200) {
             console.log("req.status was: " + req.status);
             console.log("PUT Request successful");
-            makeGetRequest("http://localhost:9000/ratings", "ratings");
+            makeGetRequest(ratingsLink, "ratings");
         } else {
             console.log("req.status was: " + req.status);
             console.log("PUT Request failed");
